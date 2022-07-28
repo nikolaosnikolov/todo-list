@@ -1,3 +1,0 @@
-# todo-list
-## What this todo list does?
-bla bla bla ...
