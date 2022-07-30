@@ -13,26 +13,25 @@ function App() {
             isCompleted: false
         },
     ]);
-    const [value, setValue] = React.useState('');
-    const handleSubmit = event => {
-        event.preventDefault();
-        if (!value) return;
-        const newTodos = [...todos, { text: value, isCompleted: false }]
+
+    const addTodo = text => {
+        const newTodos = [...todos, { text: text, isCompleted: false }]
         setTodos(newTodos)
-        setValue('')
     }
-    const removeTodo = event => {
-        const index = Number(event.target.id)
+    
+    const removeTodo = index => {
         let existedTodos = [...todos]
         existedTodos.splice(index, 1)
         setTodos(existedTodos)
     }
-    return (<>
-        {todos.map((todoItem, index) => <div className="todo" key={index} id={index} onClick={removeTodo}>{todoItem.text}</div>)}
-        <form onSubmit={handleSubmit}>
-            <input type="text" className="input" value={value} placeholder="Add Todo ..." onChange={event => setValue(event.target.value)} />
-        </form>
-    </>)
+    return (
+    <div className="app">
+        <div className="todo-list">
+        {todos.map((todo, index) => <Todo index={index} key={index} todo={todo} remove={removeTodo}/>)}
+        <TodoForm addTodo={addTodo}/>
+        </div>
+    </div>
+    )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
